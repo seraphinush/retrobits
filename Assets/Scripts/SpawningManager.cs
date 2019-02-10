@@ -18,7 +18,7 @@ public class SpawningManager : MonoBehaviour
     private string songName = "..\\Songs\\lostWoods.json";
     private int[][] song;
 
-    public string SongPath { get; private set; }
+    //public string SongPath { get; private set; }
 
     // Start is called before the first frame update
     void Start()
@@ -35,34 +35,35 @@ public class SpawningManager : MonoBehaviour
         foreach (KeySpawner ks in spawners)
         {
             ks.setNoteObject(notePrefab);
+            ks.spawnNote();
         }
     }
 
     // Load song data as json
     void LoadJson()
     {
-        using (StreamReader sr = new StreamReader(songName))
+        /*using (StreamReader sr = new StreamReader(songName))
         {
             string json = sr.ReadToEnd();
-            SongData data = JsonUtility.FromJson<SongData>(json);
+            //SongData data = JsonUtility.FromJson<SongData>(json);
 
-            song = data.songObject;
-        }
+            //song = data.songObject;
+        }*/
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (counter < song.Length)
+        /*if (counter < song.Length)
         {
             int[] temp = song[counter];
             for (int i = 0; i < temp.Length; i++)
             {
-                spawners[temp[i]].spawn();
+                //spawners[temp[i]].spawn();
             }
             counter++;
-        }
+        }*/
     }
 }
 

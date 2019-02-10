@@ -1,4 +1,4 @@
 ﻿internal class SongData
 {
-    public Array songObject;
+    //public Array songObject;
 }
