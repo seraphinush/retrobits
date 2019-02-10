@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using System;
 
 public class SpawningManager : MonoBehaviour
 {
@@ -15,10 +16,63 @@ public class SpawningManager : MonoBehaviour
     public GameObject notePrefab;
 
     private int counter = 0;
-    private string songName = "..\\Songs\\lostWoods.json";
-    private int[][] song;
+    private int counterr = 0;
 
-    public string SongPath { get; private set; }
+    int[][] song = new int[][]
+    {
+        new int[1] {0},new int[1] {0},new int[1] {0},new int[1] {0},new int[1] {0},new int[1] {0},new int[1] {0},new int[1] {0},new int[1] {0},new int[1] {0},new int[1] {0},new int[1] {0},
+        new int[1] {0},new int[1] {0},new int[1] {0},new int[1] {0},new int[1] {0},new int[1] {0},new int[1] {0},new int[1] {0},new int[1] {0},new int[1] {0},new int[1] {0},new int[1] {0},
+        new int[1] {0},new int[1] {0},new int[1] {0},new int[1] {0},new int[1] {0},new int[1] {0},new int[1] {0},new int[1] {0},new int[1] {0},new int[1] {0},new int[1] {0},new int[1] {0},
+        new int[1] {0},new int[1] {0},new int[1] {0},new int[1] {0},new int[1] {0},new int[1] {0},new int[1] {0},new int[1] {0},new int[1] {0},new int[1] {0},new int[1] {0},new int[1] {0},
+
+        new int[1] {1},new int[1] {2},new int[1] {3},new int[1] {0},new int[1] {0},new int[1] {0},new int[1] {1},new int[1] {2},new int[1] {3},new int[1] {0},new int[1] {0},new int[1] {0},
+        new int[1] {1},new int[1] {0},new int[1] {0},new int[1] {4},new int[1] {3},new int[1] {4},new int[1] {3},new int[1] {2},new int[1] {1},new int[1] {0},new int[1] {0},new int[1] {0},
+        new int[1] {2},new int[1] {0},new int[1] {1},new int[1] {0},new int[1] {1},new int[1] {3},new int[1] {5},new int[1] {0},new int[1] {0},new int[1] {0},new int[1] {0},new int[1] {0},
+        new int[1] {2},new int[1] {0},new int[1] {1},new int[1] {0},new int[1] {2},new int[1] {6},new int[1] {1},new int[1] {0},new int[1] {0},new int[1] {0},new int[1] {0},new int[1] {0},
+        new int[1] {1},new int[1] {2},new int[1] {3},new int[1] {0},new int[1] {0},new int[1] {0},new int[1] {1},new int[1] {2},new int[1] {3},new int[1] {0},new int[1] {0},new int[1] {0},
+        new int[1] {6},new int[1] {0},new int[1] {0},new int[1] {2},new int[1] {6},new int[1] {2},new int[1] {5},new int[1] {3},new int[1] {1},new int[1] {0},new int[1] {0},new int[1] {0},
+        new int[1] {2},new int[1] {0},new int[1] {1},new int[1] {0},new int[1] {1},new int[1] {3},new int[1] {5},new int[1] {0},new int[1] {0},new int[1] {0},new int[1] {5},new int[1] {0},
+        new int[2] {1,3},new int[1] {0},new int[1] {6},new int[1] {0},new int[1] {6},new int[1] {0},new int[1] {2},new int[1] {4},new int[1] {5},new int[1] {0},new int[1] {0},new int[1] {0},
+        new int[1] {2},new int[1] {0},new int[2] {4,6},new int[1] {0},new int[2] {4,6},new int[1] {0},new int[1] {3},new int[1] {2},new int[1] {5},new int[1] {0},new int[1] {0},new int[1] {0},
+        new int[2] {1,3},new int[1] {0},new int[1] {6},new int[1] {0},new int[1] {6},new int[1] {0},new int[1] {2},new int[1] {4},new int[1] {5},new int[1] {0},new int[1] {0},new int[1] {0},
+        new int[1] {2},new int[1] {0},new int[2] {4,6},new int[1] {0},new int[2] {4,6},new int[1] {0},new int[1] {3},new int[1] {2},new int[1] {5},new int[1] {0},new int[1] {0},new int[1] {0},
+
+        new int[1] {1},new int[1] {2},new int[1] {3},new int[1] {0},new int[1] {0},new int[1] {0},new int[1] {1},new int[1] {2},new int[1] {3},new int[1] {0},new int[1] {0},new int[1] {0},
+        new int[1] {1},new int[1] {0},new int[1] {0},new int[1] {4},new int[1] {3},new int[1] {4},new int[1] {3},new int[1] {2},new int[1] {1},new int[1] {0},new int[1] {0},new int[1] {0},
+        new int[1] {2},new int[1] {0},new int[1] {1},new int[1] {0},new int[1] {1},new int[1] {3},new int[1] {5},new int[1] {0},new int[1] {0},new int[1] {0},new int[1] {0},new int[1] {0},
+        new int[1] {2},new int[1] {0},new int[1] {1},new int[1] {0},new int[1] {2},new int[1] {6},new int[1] {1},new int[1] {0},new int[1] {0},new int[1] {0},new int[1] {0},new int[1] {0},
+        new int[1] {1},new int[1] {2},new int[1] {3},new int[1] {0},new int[1] {0},new int[1] {0},new int[1] {1},new int[1] {2},new int[1] {3},new int[1] {0},new int[1] {0},new int[1] {0},
+        new int[1] {4},new int[1] {0},new int[1] {0},new int[1] {5},new int[1] {3},new int[1] {4},new int[1] {6},new int[1] {4},new int[1] {2},new int[1] {0},new int[1] {0},new int[1] {0},
+        new int[1] {6},new int[1] {0},new int[1] {1},new int[1] {0},new int[1] {1},new int[1] {2},new int[1] {3},new int[1] {0},new int[1] {0},new int[1] {0},new int[1] {3},new int[1] {0},
+        new int[2] {2,3},new int[1] {0},new int[2] {4,5},new int[1] {0},new int[2] {4,5},new int[1] {0},new int[3] {3,4,6},new int[1] {2},new int[1] {5},new int[1] {0},new int[1] {0},new int[1] {0},
+        new int[1] {6},new int[1] {0},new int[1] {1},new int[1] {0},new int[1] {1},new int[1] {2},new int[1] {3},new int[1] {0},new int[1] {0},new int[1] {0},new int[1] {3},new int[1] {0},
+        new int[2] {1,3},new int[1] {0},new int[1] {6},new int[1] {0},new int[1] {6},new int[1] {0},new int[1] {2},new int[1] {4},new int[1] {5},new int[1] {0},new int[1] {0},new int[1] {0},
+        new int[1] {2},new int[1] {0},new int[2] {4,6},new int[1] {0},new int[2] {4,6},new int[1] {0},new int[1] {3},new int[1] {2},new int[1] {5},new int[1] {0},new int[1] {0},new int[1] {0},
+
+        new int[1] {1},new int[1] {2},new int[1] {3},new int[1] {0},new int[1] {0},new int[1] {0},new int[1] {1},new int[1] {2},new int[1] {3},new int[1] {0},new int[1] {0},new int[1] {0},
+        new int[1] {1},new int[1] {0},new int[1] {0},new int[1] {4},new int[1] {3},new int[1] {4},new int[1] {3},new int[1] {2},new int[1] {1},new int[1] {0},new int[1] {0},new int[1] {0},
+        new int[1] {2},new int[1] {0},new int[1] {1},new int[1] {0},new int[1] {1},new int[1] {3},new int[1] {5},new int[1] {0},new int[1] {0},new int[1] {0},new int[1] {0},new int[1] {0},
+        new int[1] {2},new int[1] {0},new int[1] {1},new int[1] {0},new int[1] {2},new int[1] {6},new int[1] {1},new int[1] {0},new int[1] {0},new int[1] {0},new int[1] {0},new int[1] {0},
+        new int[1] {1},new int[1] {2},new int[1] {3},new int[1] {0},new int[1] {0},new int[1] {0},new int[1] {1},new int[1] {2},new int[1] {3},new int[1] {0},new int[1] {0},new int[1] {0},
+        new int[1] {6},new int[1] {0},new int[1] {0},new int[1] {2},new int[1] {6},new int[1] {2},new int[1] {5},new int[1] {3},new int[1] {1},new int[1] {0},new int[1] {0},new int[1] {0},
+        new int[1] {2},new int[1] {0},new int[1] {1},new int[1] {0},new int[1] {1},new int[1] {3},new int[1] {5},new int[1] {0},new int[1] {0},new int[1] {0},new int[1] {5},new int[1] {0},
+        new int[2] {1,3},new int[1] {0},new int[1] {6},new int[1] {0},new int[1] {6},new int[1] {0},new int[1] {2},new int[1] {4},new int[1] {5},new int[1] {0},new int[1] {0},new int[1] {0},
+        new int[1] {2},new int[1] {0},new int[2] {4,6},new int[1] {0},new int[2] {4,6},new int[1] {0},new int[1] {3},new int[1] {2},new int[1] {5},new int[1] {0},new int[1] {0},new int[1] {0},
+        new int[2] {1,3},new int[1] {0},new int[1] {6},new int[1] {0},new int[1] {6},new int[1] {0},new int[1] {2},new int[1] {4},new int[1] {5},new int[1] {0},new int[1] {0},new int[1] {0},
+        new int[1] {2},new int[1] {0},new int[2] {4,6},new int[1] {0},new int[2] {4,6},new int[1] {0},new int[1] {3},new int[1] {2},new int[1] {5},new int[1] {0},new int[1] {0},new int[1] {0},
+
+        new int[1] {1},new int[1] {2},new int[1] {3},new int[1] {0},new int[1] {0},new int[1] {0},new int[1] {1},new int[1] {2},new int[1] {3},new int[1] {0},new int[1] {0},new int[1] {0},
+        new int[1] {1},new int[1] {0},new int[1] {0},new int[1] {4},new int[1] {3},new int[1] {4},new int[1] {3},new int[1] {2},new int[1] {1},new int[1] {0},new int[1] {0},new int[1] {0},
+        new int[1] {2},new int[1] {0},new int[1] {1},new int[1] {0},new int[1] {1},new int[1] {3},new int[1] {5},new int[1] {0},new int[1] {0},new int[1] {0},new int[1] {0},new int[1] {0},
+        new int[1] {2},new int[1] {0},new int[1] {1},new int[1] {0},new int[1] {2},new int[1] {6},new int[1] {1},new int[1] {0},new int[1] {0},new int[1] {0},new int[1] {0},new int[1] {0},
+        new int[1] {1},new int[1] {2},new int[1] {3},new int[1] {0},new int[1] {0},new int[1] {0},new int[1] {1},new int[1] {2},new int[1] {3},new int[1] {0},new int[1] {0},new int[1] {0},
+        new int[1] {4},new int[1] {0},new int[1] {0},new int[1] {5},new int[1] {3},new int[1] {4},new int[1] {6},new int[1] {4},new int[1] {2},new int[1] {0},new int[1] {0},new int[1] {0},
+        new int[1] {6},new int[1] {0},new int[1] {1},new int[1] {0},new int[1] {1},new int[1] {2},new int[1] {3},new int[1] {0},new int[1] {0},new int[1] {0},new int[1] {3},new int[1] {0},
+        new int[2] {2,3},new int[1] {0},new int[2] {4,5},new int[1] {0},new int[2] {4,5},new int[1] {0},new int[3] {3,4,6},new int[1] {2},new int[1] {5},new int[1] {0},new int[1] {0},new int[1] {0},
+        new int[1] {6},new int[1] {0},new int[1] {1},new int[1] {0},new int[1] {1},new int[1] {2},new int[1] {3},new int[1] {0},new int[1] {0},new int[1] {0},new int[1] {3},new int[1] {0},
+        new int[2] {1,3},new int[1] {0},new int[1] {6},new int[1] {0},new int[1] {6},new int[1] {0},new int[1] {2},new int[1] {4},new int[1] {5},new int[1] {0},new int[1] {0},new int[1] {0},
+        new int[1] {2},new int[1] {0},new int[2] {4,6},new int[1] {0},new int[2] {4,6},new int[1] {0},new int[1] {3},new int[1] {2},new int[1] {5},new int[1] {0},new int[1] {0},new int[1] {0}
+    };
 
     // Start is called before the first frame update
     void Start()
@@ -30,38 +84,30 @@ public class SpawningManager : MonoBehaviour
         spawners[4] = ks5Object.GetComponent<KeySpawner>();
         spawners[5] = ks6Object.GetComponent<KeySpawner>();
 
-        LoadJson();
-        
         foreach (KeySpawner ks in spawners)
         {
             ks.setNoteObject(notePrefab);
         }
     }
 
-    // Load song data as json
-    void LoadJson()
-    {
-        using (StreamReader sr = new StreamReader(songName))
-        {
-            string json = sr.ReadToEnd();
-            SongData data = JsonUtility.FromJson<SongData>(json);
-
-            song = data.songObject;
-        }
-
-    }
-
     // Update is called once per frame
     void Update()
     {
-        if (counter < song.Length)
+        if (counterr > 10)
         {
-            int[] temp = song[counter];
-            for (int i = 0; i < temp.Length; i++)
+            if (counter < song.Length)
             {
-                spawners[temp[i]].spawn();
+                int[] temp = song[counter];
+                if (temp[0] != 0)
+                {
+                    spawners[temp[0]].spawnNote();
+                }
+                counter++;
             }
-            counter++;
+            counterr = 0;
+        } else
+        {
+            counterr++;
         }
     }
 }
