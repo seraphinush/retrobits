@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
 
 public class SpawningManager : MonoBehaviour
 {
@@ -13,6 +14,12 @@ public class SpawningManager : MonoBehaviour
     private KeySpawner[] spawners = new KeySpawner[6];
     public GameObject notePrefab;
 
+    private int counter = 0;
+    private string songName = "..\\Songs\\lostWoods.json";
+    private int[][] song;
+
+    public string SongPath { get; private set; }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -23,16 +30,39 @@ public class SpawningManager : MonoBehaviour
         spawners[4] = ks5Object.GetComponent<KeySpawner>();
         spawners[5] = ks6Object.GetComponent<KeySpawner>();
 
+        LoadJson();
+        
         foreach (KeySpawner ks in spawners)
         {
             ks.setNoteObject(notePrefab);
         }
     }
 
+    // Load song data as json
+    void LoadJson()
+    {
+        using (StreamReader sr = new StreamReader(songName))
+        {
+            string json = sr.ReadToEnd();
+            SongData data = JsonUtility.FromJson<SongData>(json);
+
+            song = data.songObject;
+        }
+
+    }
+
     // Update is called once per frame
     void Update()
     {
-
+        if (counter < song.Length)
+        {
+            int[] temp = song[counter];
+            for (int i = 0; i < temp.Length; i++)
+            {
+                spawners[temp[i]].spawn();
+            }
+            counter++;
+        }
     }
 }
 
