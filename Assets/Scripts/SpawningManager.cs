@@ -12,6 +12,7 @@ public class SpawningManager : MonoBehaviour
     public GameObject ks5Object;
     public GameObject ks6Object;
     private KeySpawner[] spawners = new KeySpawner[6];
+    public GameObject notePrefab;
 
     private int counter = 0;
     private string songName = "..\\Songs\\lostWoods.json";
@@ -30,6 +31,11 @@ public class SpawningManager : MonoBehaviour
         spawners[5] = ks6Object.GetComponent<KeySpawner>();
 
         LoadJson();
+        
+        foreach (KeySpawner ks in spawners)
+        {
+            ks.setNoteObject(notePrefab);
+        }
     }
 
     // Load song data as json
@@ -42,6 +48,7 @@ public class SpawningManager : MonoBehaviour
 
             song = data.songObject;
         }
+
     }
 
     // Update is called once per frame
