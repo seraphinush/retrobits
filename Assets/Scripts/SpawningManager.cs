@@ -11,6 +11,7 @@ public class SpawningManager : MonoBehaviour
     public GameObject ks5Object;
     public GameObject ks6Object;
     private KeySpawner[] spawners = new KeySpawner[6];
+    public GameObject notePrefab;
 
     // Start is called before the first frame update
     void Start()
@@ -21,6 +22,11 @@ public class SpawningManager : MonoBehaviour
         spawners[3] = ks4Object.GetComponent<KeySpawner>();
         spawners[4] = ks5Object.GetComponent<KeySpawner>();
         spawners[5] = ks6Object.GetComponent<KeySpawner>();
+
+        foreach (KeySpawner ks in spawners)
+        {
+            ks.setNoteObject(notePrefab);
+        }
     }
 
     // Update is called once per frame
