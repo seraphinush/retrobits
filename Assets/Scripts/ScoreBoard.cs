@@ -6,17 +6,23 @@ using UnityEngine.UI;
 public class ScoreBoard : MonoBehaviour
 {
 
-    public string name;
+    public int score = 0;
 
     // Start is called before the first frame update
     void Start()
     {
-        GetComponent<Text>().text = PlayerPrefs.GetInt(name) + "";
+        
     }
 
     // Update is called once per frame
     void Update()
     {
 
+    }
+
+    void updateScore()
+    {
+        score += 10;
+        //GetComponent<Text>().text = score;
     }
 }

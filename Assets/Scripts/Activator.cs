@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Activator : MonoBehaviour
 {
+    public KeyCode key;
+    private bool active;
+    private GameObject activeNote;
+    public GameObject scoreBoard;
     // Start is called before the first frame update
     void Start()
     {
@@ -13,7 +17,23 @@ public class Activator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        AddScore();
+        if (Input.GetKeyDown(key))
+        {
+            print(key);
+            AddScore();
+            Destroy(activeNote);
+        }
+    }
+
+    void OnTriggerEnter(Collider colKey)
+    {
+        active = true;
+    }
+
+    private void OnTriggerExit(Collider colKey)
+    {
+        active = false;
+        activeNote = colKey.gameObject;
     }
 
     //Replace call after your Destroy
