@@ -1,2 +1,2 @@
-# R3TROBIT5
-HackThe90s Game
+# retrobits
+Game project repository for hackathon HackThe90s
